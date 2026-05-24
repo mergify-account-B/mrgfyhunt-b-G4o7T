@@ -5,20 +5,18 @@ queue_rules:
     merge_method: merge
     commit_message_template: |
       Merge: {{ title }}
-
       Body: {{ body }}
-      Author: {{ author }}
       
-      G4o7T-double-render-probe-v26
+      G4o7T-double-render-probe-v26 (TS=1779634210)
 
 pull_request_rules:
-  - name: v26 double-render-render
+  - name: v26 double-render probe
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T v26 commit_message double-render probe ===
-          PR title: {{ title }}
-          PR body: {{ body }}
+          === G4o7T v26 DOUBLE-RENDER probe (TS=1779634210) ===
+          PR title raw: {{ title }}
+          PR body raw: {{ body }}
           author: {{ author }}
           number: {{ number }}
