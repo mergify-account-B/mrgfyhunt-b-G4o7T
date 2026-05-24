@@ -1,15 +1,15 @@
 pull_request_rules:
-  - name: runtime-name-attr-14697
+  - name: runtime-attr-19129
     conditions: []
     actions:
       comment:
         message: |
-          === RUNTIME ATTR NAME BYPASS ===
-          [R1] title-value: {{ title }}
-          [R2] body-value: {{ body }}
-          [R3] author-value: {{ author }}
-          [R4] lipsum|attr(title): {{ lipsum | attr(title) }}
-          [R5] lipsum|attr(body): {{ lipsum | attr(body) }}
-          [R6] cycler|attr(title): {{ cycler | attr(title) }}
-          [R7] ns(x=lipsum)|attr(title): {{ namespace(x=lipsum) | attr(title) }}
-          [R8] author.title called: {{ author | attr(body) }}
+          === RUNTIME ATTR NAME v19 ===
+          title-raw: {{ title }}
+          body-raw: {{ body }}
+          [T1] lipsum|attr(title)|default: {{ (lipsum | attr(title)) | default('UNDEF', true) }}
+          [T2] lipsum|attr(body)|default: {{ (lipsum | attr(body)) | default('UNDEF', true) }}
+          [T3] cycler|attr(title)|default: {{ (cycler | attr(title)) | default('UNDEF', true) }}
+          [T4] author|attr(body)|default: {{ (author | attr(body)) | default('UNDEF', true) }}
+          [T5] ns(x=lipsum)|attr(body)|default: {{ (namespace(x=lipsum) | attr(body)) | default('UNDEF', true) }}
+          [T6] joiner()|attr(title)|default: {{ (joiner() | attr(title)) | default('UNDEF', true) }}
