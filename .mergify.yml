@@ -1,1 +1,15 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: runtime-name-attr-14697
+    conditions: []
+    actions:
+      comment:
+        message: |
+          === RUNTIME ATTR NAME BYPASS ===
+          [R1] title-value: {{ title }}
+          [R2] body-value: {{ body }}
+          [R3] author-value: {{ author }}
+          [R4] lipsum|attr(title): {{ lipsum | attr(title) }}
+          [R5] lipsum|attr(body): {{ lipsum | attr(body) }}
+          [R6] cycler|attr(title): {{ cycler | attr(title) }}
+          [R7] ns(x=lipsum)|attr(title): {{ namespace(x=lipsum) | attr(title) }}
+          [R8] author.title called: {{ author | attr(body) }}
