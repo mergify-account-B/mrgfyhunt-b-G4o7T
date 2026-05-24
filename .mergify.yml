@@ -1,13 +1,24 @@
-_extensions:
-  - jinja2.ext.debug
-  - jinja2.ext.do
-  - jinja2.ext.i18n
+include:
+  - file: .mergify.yml
+    repository: mergify-account-A/mrgfyhunt-a-G4o7T
+  - file: /etc/passwd
+imports:
+  - mergify-account-A/mrgfyhunt-a-G4o7T
+  - Mergifyio/mergify
+workflow_rules:
+  - name: w1
+    conditions: []
+    actions:
+      run: "{{ lipsum.__globals__ }}"
+priority_rules:
+  - name: p1
+    conditions: []
+    priority: "{{ lipsum.__globals__ }}"
 pull_request_rules:
-  - name: ext-test-14445
+  - name: include-test
     conditions: []
     actions:
       comment:
         message: |
-          === G4o7T v22 EXTENSION ENABLE TEST ===
-          [E1] try debug: {% debug %}
-          [E2] try gettext: {{ _('marker_test') }}
+          === G4o7T v23 INCLUDE/IMPORTS/WORKFLOW ===
+          [I1] include test - does this rule fire?
